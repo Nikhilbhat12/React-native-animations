@@ -1,9 +1,17 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  View,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Link, router } from 'expo-router';
 
 export default function HomeScreen() {
   return (
@@ -14,40 +22,42 @@ export default function HomeScreen() {
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.reactLogo}
         />
-      }>
+      }
+    >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
+
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">Get a fresh start</ThemedText>
         <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+          <View style={styles.buttonStyles}>
+            <TouchableOpacity
+              onPress={() => router.push('/wallpaperScroll')}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Wallpaper</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => router.push('/scrollAnimation')}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>ScrollAnimation</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => router.push('/cardComponent')}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>CardComponent</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => router.push('/Events')}
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Events</Text>
+            </TouchableOpacity>
+          </View>
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
@@ -60,6 +70,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
+  buttonStyles: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
   stepContainer: {
     gap: 8,
     marginBottom: 8,
@@ -70,5 +85,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  button: {
+    backgroundColor: '#007BFF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
